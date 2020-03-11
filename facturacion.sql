@@ -37,7 +37,4 @@ alter table facturaenc add constraint fk_clientes
 alter table facturaenc rename constraint fk_clientesssss to fk_clientes
 alter table facturaenc drop constraint fk_cliente
 
---Esta linea se agregó 20200310
-
-
-
+--Esta linea se agregó 20200310-Actualizado
