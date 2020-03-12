@@ -7,14 +7,11 @@ select customer.customer_id,customer.first_name,customer.last_name,
 --Alias a las tablas
 select c.customer_id,c.first_name,c.last_name,
 	p.amount
-	from customer as c
+	from public.customer as c
 	inner join payment as p on c.customer_id=p.customer_id
 	
 --Alias a los campos
-select c.customer_id ,c.first_name,c.last_name,
-	p.amount
+select c.customer_id as Id ,c.first_name as nombres,c.last_name as apellidos,
+	p.amount as monto
 	from customer as c
 	inner join payment as p on c.customer_id=p.customer_id
-
-
-----Agregado
