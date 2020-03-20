@@ -59,5 +59,14 @@ select id,nombre,precio,'A' from producto_2
 select * from producto_2
 select * from producto_log order by 3 desc
 
+--Insert
+select * from producto_2 order by 1 desc
+select * from producto_log order by 3 desc
+with t as (
+	insert into producto_2 (nombre,precio) values('Marcador',3),('Mouse',0.5)
+	returning *
+)
+insert into producto_log (id,nombre,precio,tipo)
+select id,nombre,precio,'I' from t
 
 
