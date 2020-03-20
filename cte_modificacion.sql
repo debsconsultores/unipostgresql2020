@@ -34,7 +34,30 @@ with t as (
 --select * from producto_2
 select * from t
 
+----Agregar al log, el tipo y el precio
+alter table producto_log add column precio numeric(14,2) default 0;
+alter table producto_log add column tipo char(1) default '';
 
+with prod_elim as (
+	delete from producto_2 where nombre ilike '%lar'
+	returning *
+)
+insert into producto_log (id,nombre,precio,tipo)
+select id,nombre,precio,'B' from prod_elim
+
+select * from producto_log
+---Actualizar
+with t as (
+	update producto_2 set precio = (id*1.15) + precio
+	--update producto_2 set nombre='Portatiles' where id=3
+	returning *
+)
+insert into producto_log (id,nombre,precio,tipo)
+select id,nombre,precio,'A' from producto_2
+	where id in (select id from t)
+
+select * from producto_2
+select * from producto_log order by 3 desc
 
 
 
