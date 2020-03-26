@@ -11,3 +11,11 @@ ORDER BY EMPLOYEE_ID
 
 UPDATE EMPLOYEE SET EXT = '123' WHERE EMPLOYEE_ID=1
 SELECT COALESCE(NULL,AVG(1))
+
+
+select
+	COALESCE(TELEFONO_OFICINA,' --S/Telef.--') as Campo,
+	COALESCE(TELEFONO_OFICINA || ' Ext.' || EXT,' ** SIN TEL**') as Expresion,
+	COALESCE(TELEFONO_OFICINA,' --S/Telef.--') || ' Ext.' || Ext as Campo2
+	from EMPLOYEE
+	order by 1
