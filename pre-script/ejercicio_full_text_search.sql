@@ -30,3 +30,17 @@ values
 ('Vikings','Vikings es una serie de televisión de drama histórico creada y escrita por Michael Hirst para el canal History. Filmada en Irlanda, se estrenó el 3 de marzo de 2013 en Canadá. En enero de 2019, se anunció que la sexta temporada de 20 episodios, que se ordenó el 12 de septiembre de 2017, antes del estreno en la quinta temporada, sería la última temporada de la serie. La sexta temporada se estrenó el 4 de diciembre de 2019. Una serie secuela, titulada Vikings: Valhalla, está en desarrollo para Netflix.','Michael Hirst'),
 ('Vikings','Vikings is a historical drama television series created and written by Michael Hirst for the History channel. Filmed in Ireland, it premiered on March 3, 2013, in Canada. In January 2019, it was announced that the 20-episode sixth season, which was ordered on September 12, 2017, ahead of its fifth-season premiere, would be the final season of the series. The sixth season premiered on December 4, 2019. A sequel series, titled Vikings: Valhalla, is in development for Netflix.','Michael Hirst')
 
+alter table tv_series add idioma regconfig ;
+select * from tv_series order by id
+--delete from tv_series where id>10
+update tv_series set idioma='english' where id in (1,2,3,4,10);
+update tv_series set idioma='spanish' where idioma is null;
+
+alter table tv_series add busqueda tsvector
+	GENERATED ALWAYS AS 
+	(to_tsvector(idioma,coalesce(title,'') || ' ' || coalesce(description,'') || ' ' || coalesce(creator,''))) STORED
+	
+select title,idioma,busqueda from tv_series
+	where busqueda @@ to_tsquery(idioma,'fantasìa')
+	order by title
+
