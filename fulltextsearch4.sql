@@ -38,3 +38,7 @@ select title,ts_rank_cd(busqueda,to_tsquery(idioma,'serie')) as clasificacion
 from tv_series
 where busqueda @@ to_tsquery(idioma,'serie')
 order by 2 desc
+
+select to_tsquery('english','''supernova stars'' & !crab')
+union all
+select websearch_to_tsquery('english','supernova stars -crab')
