@@ -42,3 +42,8 @@ order by 2 desc
 select to_tsquery('english','''supernova stars'' & !crab')
 union all
 select websearch_to_tsquery('english','supernova stars -crab')
+
+
+select to_tsvector('No. Recibo 12-12345-32') @@ to_tsquery('345')  --No funciona Full Text Search
+select 'No. Recibo 12-12345-32' ilike '%1%2%3%4%5%3%2'             --Mejor opciòn like
+
